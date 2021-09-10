@@ -37,6 +37,11 @@ def makeWindow():
         with pm.autoLayout():
             with pm.autoLayout():
                 ws={}
+                pm.text(label='selectedobjはcopyしたいobjectをget')
+                pm.text(label='copyobjは選択しているvertexにcopy')
+                pm.text(label='random scaleにチェックを入れるとobjectのscaleをrandomにcopy')
+                pm.text(label='random rotateにチェックを入れるとobjectのrotateをrandomにcopy')
+                pm.setParent('..')
                 ws['cb1']=pm.checkBox(label='random scale')
                 ws['float1']=pm.floatSliderGrp(label='scale', field=True, min=0.0, max=10.0, step=0.1, value=1.0)
                 pm.setParent('..')
