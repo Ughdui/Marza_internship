@@ -1,16 +1,19 @@
 import pymel.core as pm
 
-def copyobj(name):
+def copy_obj(name, x, y, z):
+    pm.duplicate()
+    pm.move(name,x,y,z,ws=True)
 
+def get_positions():
     S_obj=pm.selected(fl=True)
     getpos=pm.xform(S_obj, q=True, ws=True, t=True)
-    getnum=pm.xform(S_obj, q=True, ws=True, t=True)
-
-    for i in range(len(getnum)/3):
-        name=pm.sphere()
+    for i in range(len(getpos)/3):
         x=getpos[i*3]
         y=getpos[i*3+1]
         z=getpos[i*3+2]
-        pm.move(x, y, z, name, ws=True)
-         
-copyobj("pSphere1")
+
+def do(name):
+    for x, y, z in get_positions():
+        copy_obj(name, x, y, z)
+
+do("pSphere1")
