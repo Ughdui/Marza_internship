@@ -1,7 +1,6 @@
 import random
 import pymel.core as pm
 
-
 def copyobj(ws):
     obj_scale=ws['float1'].getValue()#scaleを調整するSlider
     obj_rotate=ws['float2'].getValue()#rotateを調整するSlider
