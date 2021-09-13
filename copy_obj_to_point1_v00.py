@@ -14,9 +14,11 @@ def get_positions():
         z=getpos[i*3+2]
         pos_list.append((x, y, z))
     return pos_list
+    
 
 def do(name):
     for x, y, z in get_positions():
+        #copy_obj(name, x, y, z)
+        print(x, y, z)
         copy_obj(name, x, y, z)
-
 do("pSphere1")
