@@ -1,8 +1,8 @@
 import pymel.core as pm
 
 def copy_obj(name, x, y, z):
-    pm.duplicate()
-    pm.move(name,x,y,z,ws=True)
+    copy=pm.duplicate(name)
+    pm.move(copy,x,y,z,ws=True)
 
 def get_positions():
     S_obj=pm.selected(fl=True)
@@ -11,7 +11,7 @@ def get_positions():
         x=getpos[i*3]
         y=getpos[i*3+1]
         z=getpos[i*3+2]
-
+        
 def do(name):
     for x, y, z in get_positions():
         copy_obj(name, x, y, z)
