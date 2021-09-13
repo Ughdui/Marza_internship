@@ -17,8 +17,6 @@ def get_positions():
 
 def do(name):
     for x, y, z in get_positions():
-        #copy_obj(name, x, y, z)
-        print(x, y, z)
         copy_obj(name, x, y, z)
 do("pSphere1")
 
