@@ -7,11 +7,13 @@ def copy_obj(name, x, y, z):
 def get_positions():
     S_obj=pm.selected(fl=True)
     getpos=pm.xform(S_obj, q=True, ws=True, t=True)
+    pos_list = []
     for i in range(len(getpos)/3):
         x=getpos[i*3]
         y=getpos[i*3+1]
         z=getpos[i*3+2]
-        
+    return pos_list
+    
 def do(name):
     for x, y, z in get_positions():
         copy_obj(name, x, y, z)
