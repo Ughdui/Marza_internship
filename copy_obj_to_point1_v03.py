@@ -15,30 +15,40 @@ def get_positions():
         pos_list.append((x, y, z))
     return pos_list
 
-def return_name(name):
+def copy_name_obj(ui):
     n=0
-    numlist=pm.textScrollList('Obj_name', q=True, si=True)
+    numlist=pm.textScrollList(ui, q=True, si=True)
+    if len(numlist) == 0:
+        return
     for x, y, z in get_positions():
-        L_name=name[n%len(numlist)]
+        L_name=numlist[n%len(numlist)]
         copy_obj(L_name, x, y, z)
         n+=1
-        
 
-def copy_name_obj():
 
-    namelist=pm.textScrollList('Obj_name', q=True, si=True)
-    #print(len(namelist))
-    return_name(namelist)
+def add_name(ui):
+    sel=pm.ls(sl=True)
+    abc=pm.textScrollList(ui, e=True, append=sel)
+    print(abc)
 
+def remove_name(ui):
+    for obj in pm.textScrollList(ui,q=True,si=True):
+        pm.textScrollList(ui,e=True,ri=obj)
+    
 
 def makeWindow():    
     with pm.window(title='window'):
         with pm.autoLayout():
-            pm.text(label='object name',h=100)
+            pm.text(label='object name')
+            
+            ui=pm.textScrollList('Obj_name', numberOfRows=8, ams=True, h=200)
 
-            allobjlist=pm.ls(assemblies=True, ca=False, v=True)
-            pm.textScrollList('Obj_name', numberOfRows=8, ams=True, h=200, append=allobjlist)
-            
-            pm.button(label='copy', h=90, command =pm.Callback(copy_name_obj))
-            
+            with pm.gridLayout()as gr:
+                gr.setNumberOfColumns(2)
+                gr.setCellWidth(90)
+                gr.setCellHeight(30)
+                pm.button(label='add', h=90, command =pm.Callback(add_name,ui))
+                pm.button(label='remove', h=90, command =pm.Callback(remove_name,ui))
+            pm.button(label='copy', h=90, command =pm.Callback(copy_name_obj,ui))
+                
 makeWindow()
