@@ -17,30 +17,28 @@ def get_positions():
 
 def return_name(name):
     n=0
+    numlist=pm.textScrollList('Obj_name', q=True, si=True)
     for x, y, z in get_positions():
-        #print(x, y, z)
-        L_name=name[n%3]
+        L_name=name[n%len(numlist)]
         copy_obj(L_name, x, y, z)
         n+=1
+        
 
 def copy_name_obj():
-    uinames=['Obj_name0', 'Obj_name1', 'Obj_name2']
-    namelist=[]
-    for uiname in uinames :
-        name=pm.textField(uiname, q=True, text=True)
-        namelist.append(name)
-    #print (namelist)
-    return_name(namelist)
 
+    namelist=pm.textScrollList('Obj_name', q=True, si=True)
+    #print(len(namelist))
+    return_name(namelist)
 
 
 def makeWindow():    
     with pm.window(title='window'):
         with pm.autoLayout():
-            pm.text(label='object name')
-            pm.textField('Obj_name0',text="")
-            pm.textField('Obj_name1',text="")
-            pm.textField('Obj_name2',text="")
-            pm.button(label='copy', command =pm.Callback(copy_name_obj))
+            pm.text(label='object name',h=100)
+
+            allobjlist=pm.ls(assemblies=True, ca=False, v=True)
+            pm.textScrollList('Obj_name', numberOfRows=8, ams=True, h=200, append=allobjlist)
+            
+            pm.button(label='copy', h=90, command =pm.Callback(copy_name_obj))
             
 makeWindow()
