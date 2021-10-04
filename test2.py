@@ -11,9 +11,23 @@ def copy_obj(name, x, y, z):
     #move
     pm.move(x, y, z, copy, ws=True)
 
+    S_obj=pm.selected(fl=True)
+    normal=pm.polyNormalPerVertex(S_obj, q=True,xyz=True)
+    normal_list=[]
+    for n in range(len(S_obj)):
+        nx=normal[n*0]
+        ny=normal[n*1]
+        nz=normal[n*2]
+        normal_list.append((nx, ny,nz))
+        pm.rotate(nx, ny, nz, copy, ws=True)
+    return normal_list
+            
+    #print (normal)
+
 def get_positions():
     S_obj=pm.selected(fl=True)
     getpos=pm.xform(S_obj, q=True, ws=True, t=True)
+    
     pos_list=[]
     for i in range(len(getpos)/3):
         x=getpos[i*3]
@@ -21,7 +35,7 @@ def get_positions():
         z=getpos[i*3+2]
         pos_list.append((x, y, z))
     return pos_list
-    
+
 def copy_name_obj(ui):
     n=0
     numlist=pm.textScrollList(ui, q=True, si=True)

@@ -11,6 +11,11 @@ def copy_obj(name, x, y, z):
     #move
     pm.move(x, y, z, copy, ws=True)
 
+    #rotate
+    #pm.xform(copy, s=[obj_scale, obj_scale, obj_scale], absolute=True)
+    abc=pm.polyNormalPerVertex(query=True, xyz=True)
+    pm.rotate(copy, abc[0], abc[1], abc[2],ws=True) 
+
 def get_positions():
     S_obj=pm.selected(fl=True)
     getpos=pm.xform(S_obj, q=True, ws=True, t=True)
